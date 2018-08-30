@@ -1,4 +1,4 @@
-module "shared-vault" {
+module "shared_vault" {
   source = "git@github.com:hmcts/cnp-module-key-vault.git?ref=master"
   name = "dm-${var.env}"
   product = "${var.product}"
@@ -10,9 +10,9 @@ module "shared-vault" {
 }
 
 output "vaultName" {
-  value = "${module.shared-vault.key_vault_name}"
+  value = "${module.shared_vault.key_vault_name}"
 }
 
 output "vaultUri" {
-  value = "${module.shared-vault.key_vault_uri}"
+  value = "${module.shared_vault.key_vault_uri}"
 }
