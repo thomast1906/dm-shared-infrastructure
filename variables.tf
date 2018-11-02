@@ -21,10 +21,8 @@ variable "jenkins_AAD_objectId" {
 }
 
 // TAG SPECIFIC VARIABLES
-variable "team_name" {
-  type        = "string"
-  description = "The name of your team"
-  default     = "CDM (CCD/DM)"
+variable "common_tags" {
+  type = "map"
 }
 
 variable "team_contact" {
