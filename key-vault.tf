@@ -1,5 +1,5 @@
 module "shared_vault" {
-  source = "git@github.com:hmcts/cnp-module-key-vault.git?ref=master"
+  source = "git@github.com:hmcts/cnp-module-key-vault"
   name = "dm-${var.env}"
   product = "${var.product}"
   env = "${var.env}"
