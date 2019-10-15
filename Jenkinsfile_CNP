@@ -2,12 +2,14 @@
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
-import uk.gov.hmcts.contino.Environment
-
-Environment environment = new Environment(env)
-
-onMaster {
-  withInfraPipeline('dm', environment.nonProdName, 'nonprod')
-  withInfraPipeline('dm', environment.demoName, 'nonprod')
-  withInfraPipeline('dm', environment.prodName, 'prod')
+withInfraPipeline('dm') {
+    onMaster {
+        enableSlackNotifications('#dm-master-builds')
+    }
+    onDemo {
+        enableSlackNotifications('#dm-demo-builds')
+    }
+    onPR {
+        enableSlackNotifications('#dm-pr-builds')
+    }
 }
