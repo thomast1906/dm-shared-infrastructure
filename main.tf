@@ -16,3 +16,4 @@ resource "azurerm_resource_group" "shared_rg" {
 }
 
 provider "azurerm" {}
+
