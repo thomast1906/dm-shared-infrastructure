@@ -25,7 +25,7 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
   vault_uri = "${module.shared_vault.key_vault_uri}"
 
   network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
+    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
     default_action             = "Deny"
   }
