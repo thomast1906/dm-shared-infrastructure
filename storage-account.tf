@@ -18,12 +18,6 @@ module "storage_account" {
   destroy_me   = "${var.destroy_me}"
 }
 
-locals {
-  account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
-  trusted_vnet_name = ""
-}
-
 // Storage Account Vault Secrets
 resource "azurerm_key_vault_secret" "storageaccount_id" {
   name      = "storage-account-id"
@@ -31,22 +25,30 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
   vault_uri = "${module.shared_vault.key_vault_uri}"
 
   network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_subnet.ase_subnet.id}", "${data.azurerm_subnet.aks_subnet.id}"]
+    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
     default_action             = "Deny"
   }
 }
 
-data "azurerm_subnet" "ase_subnet" {
-  name                 = "ase-subnet"
-  virtual_network_name = "${local.trusted_vnet_name}"
-  resource_group_name  = "${local.trusted_vnet_name}"
+data "azurerm_virtual_network" "aks_core_vnet" {
+  provider             = "azurerm.aks-infra"
+  name                 = "core-${var.env}-vnet"
+  resource_group_name  = "aks-infra-${var.env}-rg"
 }
 
-data "azurerm_subnet" "aks_subnet" {
-  name                 = "aks-subnet"
-  virtual_network_name = "${local.mgmt_network_name}"
-  resource_group_name  = "${local.mgmt_network_name}"
+data "azurerm_subnet" "aks-00" {
+  provider             = "azurerm.aks-infra"
+  name                 = "aks-00"
+  virtual_network_name = "${data.azurerm_virtual_network.aks_core_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.aks_core_vnet.resource_group_name}"
+}
+
+data "azurerm_subnet" "aks-01" {
+  provider             = "azurerm.aks-infra"
+  name                 = "aks-01"
+  virtual_network_name = "${data.azurerm_virtual_network.aks_core_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.aks_core_vnet.resource_group_name}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_primary_access_key" {
