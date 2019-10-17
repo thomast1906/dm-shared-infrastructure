@@ -16,6 +16,11 @@ module "storage_account" {
   common_tags  = "${local.tags}"
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
+  network_rules {
+    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
+    bypass                     = ["Logging", "Metrics", "AzureServices"]
+    default_action             = "Deny"
+  }
 }
 
 // Storage Account Vault Secrets
@@ -23,13 +28,8 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
   name      = "storage-account-id"
   value     = "${module.storage_account.storageaccount_id}"
   vault_uri = "${module.shared_vault.key_vault_uri}"
-
-  network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
-    bypass                     = ["Logging", "Metrics", "AzureServices"]
-    default_action             = "Deny"
-  }
 }
+
 
 provider "azurerm" {
   alias           = "aks-infra"
