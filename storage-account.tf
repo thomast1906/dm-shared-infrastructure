@@ -1,4 +1,4 @@
-resource "storage_account" {
+module "storage_account" {
   source                    = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                       = "${var.env}"
   storage_account_name      = "${var.product}shared${var.env}"
@@ -15,11 +15,8 @@ resource "storage_account" {
   common_tags  = "${local.tags}"
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
-  network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
-    bypass                     = ["Logging", "Metrics", "AzureServices"]
-    default_action             = "Deny"
-  }
+
+  sa_subnets = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
 }
 
 
