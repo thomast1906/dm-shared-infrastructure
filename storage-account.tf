@@ -24,7 +24,7 @@ module "storage_account" {
 resource "azurerm_key_vault_secret" "storageaccount_id" {
   name      = "storage-account-id"
   value     = "${module.storage_account.storageaccount_id}"
-  vault_uri = "${module.shared_vault.key_vault_uri}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 
@@ -55,25 +55,25 @@ data "azurerm_subnet" "aks-01" {
 resource "azurerm_key_vault_secret" "storageaccount_primary_access_key" {
   name      = "storage-account-primary-access-key"
   value     = "${module.storage_account.storageaccount_primary_access_key}"
-  vault_uri = "${module.shared_vault.key_vault_uri}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_secondary_access_key" {
   name      = "storage-account-secondary-access-key"
   value     = "${module.storage_account.storageaccount_secondary_access_key}"
-  vault_uri = "${module.shared_vault.key_vault_uri}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_primary_connection_string" {
   name      = "storage-account-primary-connection-string"
   value     = "${module.storage_account.storageaccount_primary_connection_string}"
-  vault_uri = "${module.shared_vault.key_vault_uri}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_secondary_connection_string" {
   name      = "storage-account-secondary-connection-string"
   value     = "${module.storage_account.storageaccount_secondary_connection_string}"
-  vault_uri = "${module.shared_vault.key_vault_uri}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 
