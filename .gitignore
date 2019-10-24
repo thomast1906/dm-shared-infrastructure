@@ -5,8 +5,8 @@
 *.tfstate
 *.tfstate.*
 
-# .tfvars files
-*.tfvars
+# local .tfvars files
+*local.tfvars
 
 .idea/
 *.iml

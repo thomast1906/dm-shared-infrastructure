@@ -30,6 +30,7 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
 
 provider "azurerm" {
   alias           = "aks-infra"
+  subscription_id = "${var.aks_infra_subscription_id}"
 }
 
 data "azurerm_virtual_network" "aks_core_vnet" {
