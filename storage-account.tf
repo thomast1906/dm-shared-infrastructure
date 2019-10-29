@@ -16,7 +16,7 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
-  sa_subnets = ["${data.azurerm_virtual_network.aks_core_vnet.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
+  sa_subnets = ["${data.azurerm_subnet.ase.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
 }
 
 
@@ -51,6 +51,19 @@ data "azurerm_subnet" "aks-01" {
   name                 = "aks-01"
   virtual_network_name = "${data.azurerm_virtual_network.aks_core_vnet.name}"
   resource_group_name  = "${data.azurerm_virtual_network.aks_core_vnet.resource_group_name}"
+}
+
+data "azurerm_virtual_network" "ase_core_vnet" {
+  provider             = "azurerm.aks-infra"
+  name                 = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
+data "azurerm_subnet" "ase" {
+  provider             = "azurerm.aks-infra"
+  name                 = "ase"
+  virtual_network_name = "${data.azurerm_virtual_network.ase_core_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.ase_core_vnet.resource_group_name}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_primary_access_key" {
