@@ -54,14 +54,12 @@ data "azurerm_subnet" "aks-01" {
 }
 
 data "azurerm_virtual_network" "ase_core_vnet" {
-  provider             = "azurerm.aks-infra"
   name                 = "core-infra-vnet-${var.env}"
   resource_group_name  = "core-infra-${var.env}"
 }
 
 data "azurerm_subnet" "ase" {
-  provider             = "azurerm.aks-infra"
-  name                 = "ase"
+  name                 = "core-infra-subnet-3-${var.env}"
   virtual_network_name = "${data.azurerm_virtual_network.ase_core_vnet.name}"
   resource_group_name  = "${data.azurerm_virtual_network.ase_core_vnet.resource_group_name}"
 }
