@@ -1,6 +1,5 @@
 # dm-shared-infrastructure
 
-
 This module sets up the shared infrastructure for Document Management.
 
 ## Variables
