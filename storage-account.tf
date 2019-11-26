@@ -64,31 +64,6 @@ data "azurerm_subnet" "ase" {
   resource_group_name  = "${data.azurerm_virtual_network.ase_core_vnet.resource_group_name}"
 }
 
-resource "azurerm_key_vault_secret" "storageaccount_primary_access_key" {
-  name      = "storage-account-primary-access-key"
-  value     = "${module.storage_account.storageaccount_primary_access_key}"
-  key_vault_id = "${module.shared_vault.key_vault_id}"
-}
-
-resource "azurerm_key_vault_secret" "storageaccount_secondary_access_key" {
-  name      = "storage-account-secondary-access-key"
-  value     = "${module.storage_account.storageaccount_secondary_access_key}"
-  key_vault_id = "${module.shared_vault.key_vault_id}"
-}
-
-resource "azurerm_key_vault_secret" "storageaccount_primary_connection_string" {
-  name      = "storage-account-primary-connection-string"
-  value     = "${module.storage_account.storageaccount_primary_connection_string}"
-  key_vault_id = "${module.shared_vault.key_vault_id}"
-}
-
-resource "azurerm_key_vault_secret" "storageaccount_secondary_connection_string" {
-  name      = "storage-account-secondary-connection-string"
-  value     = "${module.storage_account.storageaccount_secondary_connection_string}"
-  key_vault_id = "${module.shared_vault.key_vault_id}"
-}
-
-
 output "storage_account_name" {
   value = "${module.storage_account.storageaccount_name}"
 }
