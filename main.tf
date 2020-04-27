@@ -15,5 +15,7 @@ resource "azurerm_resource_group" "shared_rg" {
   tags = "${local.tags}"
 }
 
-provider "azurerm" {}
+provider "azurerm" {
+    version = "1.44.0"
+}
 
