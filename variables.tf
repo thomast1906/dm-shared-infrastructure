@@ -1,28 +1,20 @@
-variable "product" {
-  type = "string"
+variable product {
   default = "dm"
 }
 
-variable "location" {
-  type    = "string"
+variable location {
   default = "UK South"
 }
 
-variable "env" {
-  type = "string"
-}
+variable env {}
 
-variable "tenant_id" {
-  description = "(Required) The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault. This is usually sourced from environment variables and not normally required to be specified."
-}
+variable tenant_id {}
 
-variable "jenkins_AAD_objectId" {
-  description = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
-}
+variable jenkins_AAD_objectId {}
 
 // TAG SPECIFIC VARIABLES
-variable "common_tags" {
-  type = "map"
+variable common_tags {
+  type = map(string)
 }
 
 variable "team_contact" {
@@ -31,14 +23,13 @@ variable "team_contact" {
   default     = "#ccd-devops"
 }
 
-variable "destroy_me" {
-  type        = "string"
+variable destroy_me {
   description = "Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing"
   default     = "No"
 }
 
-variable "aks_infra_subscription_id" {}
+variable aks_infra_subscription_id {}
 
-variable "managed_identity_object_id" {
+variable managed_identity_object_id {
   default = ""
 }
