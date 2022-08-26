@@ -17,8 +17,7 @@ variable common_tags {
   type = map(string)
 }
 
-variable "team_contact" {
-  type        = "string"
+variable team_contact {
   description = "The name of your Slack channel people can use to contact your team about your infrastructure"
   default     = "#ccd-devops"
 }
