@@ -3,13 +3,5 @@
 @Library("Infrastructure") _
 
 withInfraPipeline('dm') {
-    onMaster {
-        enableSlackNotifications('#dm-master-builds')
-    }
-    onDemo {
-        enableSlackNotifications('#dm-demo-builds')
-    }
-    onPR {
-        enableSlackNotifications('#dm-pr-builds')
-    }
+    enableSlackNotifications('#em-dev-chat')
 }
