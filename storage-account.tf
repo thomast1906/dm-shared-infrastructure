@@ -6,7 +6,7 @@ module "storage_account" {
   location                  = var.location
   account_kind              = "StorageV2"
   account_tier              = "Standard"
-  account_replication_type  = "LRS"
+  account_replication_type  = "ZRS"
   access_tier               = "Hot"
   enable_blob_encryption    = true
   enable_file_encryption    = true
