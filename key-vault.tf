@@ -12,9 +12,9 @@ module "shared_vault" {
 }
 
 output "vaultName" {
-  value = "${module.shared_vault.key_vault_name}"
+  value = module.shared_vault.key_vault_name
 }
 
 output "vaultUri" {
-  value = "${module.shared_vault.key_vault_uri}"
+  value = module.shared_vault.key_vault_uri
 }
