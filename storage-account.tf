@@ -29,6 +29,7 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
 
 
 provider "azurerm" {
+  features {}
   alias           = "aks-infra"
   subscription_id = var.aks_infra_subscription_id
 }
